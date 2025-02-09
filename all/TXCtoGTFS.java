@@ -31,6 +31,7 @@ public class TXCtoGTFS {
 
         // something something import .xml
         importXML();
+        importCSV();
 
         // convert to csv in GTFS
         agencyCreation();
@@ -69,8 +70,8 @@ public class TXCtoGTFS {
         try { 
             EasyReader reader = new EasyReader();
             System.out.println("Enter a file name (excluding extension) to convert");
-            String filename = reader.readLine();
-            //String filename = "Ser 16";
+            //String filename = reader.readLine();
+            String filename = "Ser 16";
 
             reader = new EasyReader(filename + ".xml");
              while(!reader.eof()){
@@ -83,6 +84,7 @@ public class TXCtoGTFS {
                         line = reader.readLine().trim();
                     }
                     processStopPoints(rows);
+                    System.out.println(stopPoints.size());
                 }
 
                 /*if(line.equals("<RouteSections>")){
@@ -143,9 +145,11 @@ public class TXCtoGTFS {
 
     public static void processStopPoints(List<String> lines){
         for(int i = 2; i < lines.size(); i += 4){
+            //System.out.println(i);
+            //System.out.println(stripTags(lines.get(i)) + " | " + stripTags(lines.get(i-1)));
+            stopPoints.add(new AnnotatedStopPointRef(stripTags(lines.get(i-1)), stripTags(lines.get(i))));
 
-            System.out.println(stripTags(lines.get(i)));
-            stopPoints.add(new AnnotatedStopPointRef(stripTags(lines.get(i)), stripTags(lines.get(i+1))));
+            //System.out.println(i);
         }
     }
 
@@ -194,7 +198,9 @@ public class TXCtoGTFS {
             String lat = "";
             String lon = "";
             String code = "";
+            System.out.println(stop.stopPointRef);
             for(BusStop locationStop : busStops){
+                System.out.println(locationStop.Naptan);
                 if (stop.stopPointRef.equals(locationStop.Naptan)) {
                     lat = locationStop.Latitude;
                     lon = locationStop.Longitude;
@@ -204,6 +210,7 @@ public class TXCtoGTFS {
             }
             if(lat.equals("") || lon.equals("") || code.equals("")) {
                 errors.add("Stop number " + stop.stopPointRef + " is missing in location data");
+                System.out.println("lat " + lat + " lon " + lon + "code" + code);
             } else {
                 stopsList.add(new stops(stop.stopPointRef, stop.commonName, lat, lon, code, "0"));
             }
@@ -330,9 +337,12 @@ public class TXCtoGTFS {
         }
         writer.close();
 
+
         writer = new EasyWriter("stops.txt");
         writer.println(stops.getFormat());
+        System.out.println(stopsList.size());
         for(stops line: stopsList){
+            System.out.println(line);
             writer.println(line.toString());
         }
         writer.close();
