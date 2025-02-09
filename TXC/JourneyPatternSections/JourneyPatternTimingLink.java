@@ -1,6 +1,6 @@
 public class JourneyPatternTimingLink{
-    public ToFrom from;
-    public ToFrom to;
+    public JPSToFrom from;
+    public JPSToFrom to;
     public String routeLinkRef;
     public String runTime;
 }
