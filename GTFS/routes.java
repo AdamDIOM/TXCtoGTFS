@@ -1,4 +1,4 @@
-public class routes {
+public class routes implements writable{
     public String route_id;
     public String agency_id;
     public String route_short_name;
@@ -15,5 +15,9 @@ public class routes {
 
     public String toString(){
         return route_id + "," + agency_id + "," + route_short_name + "," + route_long_name + "," + route_type;
+    }
+
+    public static String getFormat(){
+        return "route_id,agency_id,route_short_name,route_long_name,route_type";
     }
 }

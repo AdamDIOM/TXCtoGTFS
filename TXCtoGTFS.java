@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import sheffield.EasyWriter;
 
 public class TXCtoGTFS {
     // lists of TXC
@@ -12,7 +13,7 @@ public class TXCtoGTFS {
     public static List<VehicleJourney> vehicleJourneys;
 
     // list of stops from xls
-    public static List<BusStop> stops;
+    public static List<BusStop> busStops;
 
     // lists of GTFS
     public static List<agency> agencyList;
@@ -31,7 +32,12 @@ public class TXCtoGTFS {
         // something something import .xml
 
         // convert to csv in GTFS
-
+        agencyCreation();
+        stopsCreation();
+        routesCreation();
+        tripsCreation();
+        stop_timesCreation();
+        calendarCreation();
 
         // something something export .txt
     }
@@ -44,7 +50,7 @@ public class TXCtoGTFS {
         services = new ArrayList<Service>();
         vehicleJourneys = new ArrayList<VehicleJourney>();
 
-        stops = new ArrayList<BusStop>();
+        busStops = new ArrayList<BusStop>();
 
         agencyList = new ArrayList<agency>();
         stopsList = new ArrayList<stops>();
@@ -65,7 +71,7 @@ public class TXCtoGTFS {
             String lat = "";
             String lon = "";
             String code = "";
-            for(BusStop locationStop : stops){
+            for(BusStop locationStop : busStops){
                 if (stop.stopPointRef.equals(locationStop.Naptan)) {
                     lat = locationStop.Latitude;
                     lon = locationStop.Longitude;
@@ -95,12 +101,15 @@ public class TXCtoGTFS {
             String tid = vj.vehicleJourneyCode;
             // gets JPxx number
             String jpref = vj.journeyPatternRef;
-            String rid;
+            String rid = "";
             for(JourneyPattern jp: services.get(0).standardService.journeyPatterns){
                 if(jp.id.equals(jpref)){
                     rid = jp.routeRef;
                 }
                 break;
+            }
+            if(rid.equals("")){
+                errors.add("Missing route id in vehicle journey " + vj.vehicleJourneyCode);
             }
             tripsList.add(new trips(tid, rid, vj.serviceRef));
         }
@@ -189,4 +198,60 @@ public class TXCtoGTFS {
             calendarList.add(new calendar(sid, days));
         }
     }
+
+    public static void exportGTFS(){
+        EasyWriter writer = new EasyWriter("agency.txt");
+        writer.println(agency.getFormat());
+        for(agency line: agencyList){
+            writer.println(line.toString());
+        }
+        writer.close();
+
+        writer = new EasyWriter("stops.txt");
+        writer.println(stops.getFormat());
+        for(stops line: stopsList){
+            writer.println(line.toString());
+        }
+        writer.close();
+
+        writer = new EasyWriter("routes.txt");
+        writer.println(routes.getFormat());
+        for(routes line: routesList){
+            writer.println(line.toString());
+        }
+        writer.close();
+
+        writer = new EasyWriter("trips.txt");
+        writer.println(trips.getFormat());
+        for(trips line: tripsList){
+            writer.println(line.toString());
+        }
+        writer.close();
+
+        writer = new EasyWriter("stop_times.txt");
+        writer.println(stop_times.getFormat());
+        for(stop_times line: stop_timesList){
+            writer.println(line.toString());
+        }
+        writer.close();
+
+        writer = new EasyWriter("calendar.txt");
+        writer.println(calendar.getFormat());
+        for(calendar line: calendarList){
+            writer.println(line.toString());
+        }
+        writer.close();
+        
+
+        //exportFile("agency", agencyList, agency.getFormat());
+        //exportFile("stops", stopsList, stops.getFormat());
+    }
+
+    /*public static void exportFile(String filename, ArrayList<writable> listToExport, String header){
+        EasyWriter writer = new EasyWriter(filename + ".txt");
+        writer.println(header);
+        for(writable line: listToExport){
+            writer.println(line.toString());
+        }
+    }*/
 }

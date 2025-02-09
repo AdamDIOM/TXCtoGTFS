@@ -1,4 +1,4 @@
-public class stops{
+public class stops implements writable{
     public String stop_id;
     public String stop_name;
     public String stop_lat;
@@ -17,5 +17,9 @@ public class stops{
 
     public String toString(){
         return stop_id + "," + stop_name + "," + stop_lat + "," + stop_lon + "," + stop_code + "," +location_type;
+    }
+
+    public static String getFormat(){
+        return "stop_id,stop_name,stop_lat,stop_lon,stop_code,location_type";
     }
 }

@@ -1,4 +1,4 @@
-public class calendar {
+public class calendar implements writable{
     public String service_id;
     public String monday;
     public String tuesday;
@@ -21,5 +21,9 @@ public class calendar {
 
     public String toString(){
         return service_id + "," + monday + "," + tuesday + "," + wednesday + "," + thursday + "," + friday + "," + saturday + "," + sunday;
+    }
+
+    public static String getFormat(){
+        return "service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday";
     }
 }
