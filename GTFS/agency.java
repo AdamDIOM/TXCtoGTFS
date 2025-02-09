@@ -1,4 +1,4 @@
-public class agency {
+public class agency implements writable{
     public String agency_id;
     public String agency_name;
     public String agency_url;
@@ -17,5 +17,9 @@ public class agency {
 
     public String toString(){
         return agency_id + "," + agency_name + "," + agency_url + "," + agency_timezone + "," + agency_lang + "," + agency_phone;
+    }
+
+    public static String getFormat(){
+        return "agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone";
     }
 }

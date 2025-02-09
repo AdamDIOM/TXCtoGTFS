@@ -1,4 +1,4 @@
-public class stop_times{
+public class stop_times implements writable{
     public String trip_id;
     public String stop_sequence;
     public String stop_id;
@@ -15,5 +15,9 @@ public class stop_times{
 
     public String toString(){
         return trip_id + "," + stop_sequence + "," + stop_id + "," + arrival_time + "," + departure_time;
+    }
+
+    public static String getFormat(){
+        return "trip_id,stop_sequence,stop_id,arrival_time,departure_time";
     }
 }
