@@ -40,6 +40,7 @@ public class TXCtoGTFS {
         calendarCreation();
 
         // something something export .txt
+        exportGTFS();
     }
 
     public static void initLists(){
