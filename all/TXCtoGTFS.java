@@ -1,8 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
-import sheffield.EasyReader;
-import sheffield.EasyWriter;
+
 
 public class TXCtoGTFS {
     // lists of TXC
@@ -70,7 +69,8 @@ public class TXCtoGTFS {
         try { 
             EasyReader reader = new EasyReader();
             System.out.println("Enter a file name (excluding extension) to convert");
-            String filename = reader.readLine();
+            //String filename = reader.readLine();
+            String filename = "Ser 16";
 
             reader = new EasyReader(filename + ".xml");
              while(!reader.eof()){
@@ -138,11 +138,13 @@ public class TXCtoGTFS {
     }
 
     public static String stripTags(String taggedString){
-        return taggedString.substring(taggedString.indexOf('>'), taggedString.lastIndexOf('<'));
+        return taggedString.substring(taggedString.indexOf('>') + 1, taggedString.lastIndexOf('<'));
     }
 
     public static void processStopPoints(List<String> lines){
         for(int i = 2; i < lines.size(); i += 4){
+
+            System.out.println(stripTags(lines.get(i)));
             stopPoints.add(new AnnotatedStopPointRef(stripTags(lines.get(i)), stripTags(lines.get(i+1))));
         }
     }
