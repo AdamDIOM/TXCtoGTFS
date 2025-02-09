@@ -69,8 +69,8 @@ public class TXCtoGTFS {
         try { 
             EasyReader reader = new EasyReader();
             System.out.println("Enter a file name (excluding extension) to convert");
-            //String filename = reader.readLine();
-            String filename = "Ser 16";
+            String filename = reader.readLine();
+            //String filename = "Ser 16";
 
             reader = new EasyReader(filename + ".xml");
              while(!reader.eof()){
