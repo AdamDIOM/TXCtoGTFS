@@ -1,0 +1,3 @@
+route_id,agency_id,route_short_name,route_long_name,route_type
+RT1,BV,SER15,Groudle,3
+RT2,BV,SER15,Groudle,3

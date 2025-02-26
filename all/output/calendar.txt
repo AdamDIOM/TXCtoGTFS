@@ -1,0 +1,5 @@
+service_id,monday,tuesday,wednesday,thursday,friday,saturday,sunday
+SER15,0,1,0,1,0,1,1
+SER15,0,1,0,1,0,1,1
+SER15,0,1,0,1,0,1,1
+SER15,0,1,0,1,0,1,1

@@ -1,4 +1,7 @@
+
+import java.util.List;
+
 public class RouteSection {
     public String id;
-    public RouteLink[] routeLinks;
+    public List<RouteLink> routeLinks;
 }

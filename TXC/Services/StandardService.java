@@ -7,5 +7,6 @@ public class StandardService{
     public String destination;
     public List<String> vias = new ArrayList<String>();
     public List<JourneyPattern> journeyPatterns = new ArrayList<JourneyPattern>();
+    public String direction;
     
 }

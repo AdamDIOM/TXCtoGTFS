@@ -1,0 +1,5 @@
+trip_id,route_id,service_id
+VJ1,RT1,SER15
+VJ2,RT1,SER15
+VJ3,RT2,SER15
+VJ4,RT2,SER15
